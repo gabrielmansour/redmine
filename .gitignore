@@ -1,3 +1,4 @@
+.DS_Store
 /config/additional_environment.rb
 /config/database.yml
 /config/email.yml
