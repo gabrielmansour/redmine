@@ -25,3 +25,34 @@ namespace :deploy do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
   end
 end
+
+namespace :email do
+  desc "Uploads the email.yml configuration file in shared path."
+  task :setup, :except => { :no_release => true } do
+    run "mkdir -p #{shared_path}/config" 
+    upload "config/email.yml", "#{shared_path}/config/email.yml"
+  end
+  
+  desc "[internal] Updates the symlink for email.yml file to the just deployed release."
+  task :symlink, :except => { :no_release => true } do
+    run "ln -nfs #{shared_path}/config/email.yml #{release_path}/config/email.yml" 
+  end
+end
+after "deploy:setup", "email:setup"
+after "deploy:finalize_update", "email:symlink"
+
+
+namespace :db do
+  desc "Uploads the email.yml configuration file in shared path."
+  task :setup, :except => { :no_release => true } do
+    run "mkdir -p #{shared_path}/config" 
+    upload "config/database.yml", "#{shared_path}/config/database.yml"
+  end
+  
+  desc "[internal] Updates the symlink for email.yml file to the just deployed release."
+  task :symlink, :except => { :no_release => true } do
+    run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+  end
+end
+after "deploy:setup", "db:setup"
+after "deploy:finalize_update", "db:symlink"
