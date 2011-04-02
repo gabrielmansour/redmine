@@ -56,3 +56,6 @@ namespace :db do
 end
 after "deploy:setup", "db:setup"
 after "deploy:finalize_update", "db:symlink"
+
+
+after "deploy:finalize_update", "gems:install"
