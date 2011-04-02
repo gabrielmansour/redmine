@@ -53,6 +53,7 @@ Rails::Initializer.run do |config|
   config.action_controller.session = { :key => "_redmine_session", :secret => "gkyUf285HRPs8RWUWHmvHR4mC8q5pqHOzDOX45lqNQgwlrT4ElZ4Ecw7r6SbWft" }
 
   config.gem 'rubytree', :lib => 'tree'
+  config.gem 'rdiscount', :version => '~> 1.6.8'
   
   # Load any local configuration that is kept out of source control
   # (e.g. gems, patches).
